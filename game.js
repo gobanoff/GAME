@@ -63,7 +63,9 @@ function missCounter(event) {
   boss.innerText = bpoints;
   comp.innerText = cpoints;
 }
+
 function pointCounter() {
+
   bpoints++;
   boss.innerText = bpoints;
   comp.innerText = cpoints;
@@ -90,8 +92,10 @@ function roundTimeout() {
   bpoints = 0;
   cpoints = 0;
 }
-
+let l = false;
 start.onclick = function startGame() {
+  if(l)return;
+  l = true;
   begin = setInterval(function () {
     roundWinner.innerText = "";
     roundQ.innerText = `ROUND : ${round}`;
@@ -107,10 +111,19 @@ start.onclick = function startGame() {
     if (sec === 0) {
       round++;
       clearInterval(begin);
-      setTimeout(roundTimeout, 3000);
+      setTimeout(roundTimeout, 2000);
     }
     sec--;
 
     moveBox();
   }, 1000);
 };
+
+
+
+
+
+
+
+
+
