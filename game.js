@@ -104,7 +104,7 @@ function startNextRound() {
 }
 
 function startRound() {
-  if (round < 4) {
+  if (round < 11) {
     show("START");
   }
 
@@ -121,7 +121,7 @@ function startRound() {
       roundTime.innerText = `TIME : ${sec}`;
     }
 
-    if (sec === 0 && round < 3) {
+    if (sec === 0 && round < 10) {
       show1("PAUSE");
     }
 
@@ -129,7 +129,7 @@ function startRound() {
       clearInterval(begin);
       setTimeout(roundTimeout, 1000);
     }
-    if (round >= 4) {
+    if (round >= 11) {
       roundQ.innerText = "ROUND : 1";
       show2("GAME OVER");
       clearInterval(begin);
