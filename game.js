@@ -62,13 +62,16 @@ let begin;
 let click = false;
 
 function missCounter(event) {
-  if (event.target === field) cpoints++;
+  if (event.target === field && sec > 0 && sec < 29) cpoints++;
   boss.innerText = bpoints;
   comp.innerText = cpoints;
 }
 
 function pointCounter() {
-  bpoints++;
+  if (sec > 0 && sec < 30) {
+    bpoints++;
+  }
+
   boss.innerText = bpoints;
   comp.innerText = cpoints;
 }
@@ -145,6 +148,7 @@ let l = false;
 start.onclick = function startGame() {
   if (l) return;
   l = true;
+
   show("START");
   round = 1;
   startRound();
@@ -192,10 +196,10 @@ function show3(message) {
 }
 function gameOver() {
   if (brnd > crnd) {
-    show3("HUMAN WINS !!!");
+    show3("HUMAN  WINS !!!");
   }
   if (brnd < crnd) {
-    show3("COMP WINS !!!");
+    show3("COMP  WINS !!!");
   }
   if (brnd === crnd) {
     show3("DRAW !!!");
