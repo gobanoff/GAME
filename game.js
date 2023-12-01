@@ -150,38 +150,6 @@ start.onclick = function startGame() {
   startRound();
 };
 
-//let l = false;
-//start.onclick = function startGame() {
-//if (l) return;
-//l = true;
-
-//show("START");
-
-//begin = setInterval(function () {
-// roundWinner.innerText = "";
-//roundQ.innerText = `ROUND : ${round}`;
-//if (sec < 0) {
-//  sec = 30;
-// }
-//if (sec < 10) {
-// roundTime.innerText = `TIME : 0${sec}`;
-// }
-// if (sec >= 10) {
-//  roundTime.innerText = `TIME : ${sec}`;
-//  }
-//if (sec === 0) {
-//   round++;
-
-//  setTimeout(roundTimeout, 2000);
-// clearInterval(begin);
-
-// }
-//sec--;
-
-// moveBox();
-// }, 1000);
-//};
-
 function show(message) {
   const add = document.createElement("div");
   add.classList.add("message");
