@@ -7,7 +7,7 @@ gm.innerHTML += `<div id="set"><div class="screen">
 <div id="display3"><h1>ROUND WINNER </h1><p id="disp4"></p></div></div>
 <div class="screen1">   <div id="display"><h1 id="disp6">COMP - 0</h1><p id="disp" >0</p></div>
 <div id="display1"><h1 id="disp5">HUMAN - 0
-</h1><p id="disp1">0</p></div></div></div>
+</h1><p id="disp1">0</p></div></div> <div id="display9"><h1 id="disp9">DRAW - 0</h1></div></div> 
 <div id="set1"><div id="field"onclick="missCounter(event)">
 <div id="box"onclick="pointCounter()"></div></div>
 <button class="btn"><a href="#">START</a></button></div>`;
@@ -38,6 +38,8 @@ function moveBox() {
   box.style.top = y + "px";
   box.style.backgroundColor = color;
 }
+
+const dscore = document.querySelector("#disp9");
 const cscore = document.querySelector("#disp6");
 const bscore = document.querySelector("#disp5");
 const roundWinner = document.querySelector("#disp4");
@@ -49,6 +51,7 @@ const boss = document.querySelector("#disp1");
 const comp = document.querySelector("#disp");
 const start = document.querySelector(".btn");
 
+let drnd = 0;
 let crnd = 0;
 let brnd = 0;
 let bpoints = 0;
@@ -65,7 +68,6 @@ function missCounter(event) {
 }
 
 function pointCounter() {
-
   bpoints++;
   boss.innerText = bpoints;
   comp.innerText = cpoints;
@@ -87,15 +89,25 @@ function roundTimeout() {
   }
   if (bpoints === cpoints) {
     roundWinner.innerText = "DRAW";
+    drnd++;
+    dscore.innerText = `DRAW - ${drnd}`;
   }
 
   bpoints = 0;
   cpoints = 0;
+
+  setTimeout(startNextRound, 5000);
 }
-let l = false;
-start.onclick = function startGame() {
-  if(l)return;
-  l = true;
+function startNextRound() {
+  round++;
+  startRound();
+}
+
+function startRound() {
+  if (round < 4) {
+    show("START");
+  }
+
   begin = setInterval(function () {
     roundWinner.innerText = "";
     roundQ.innerText = `ROUND : ${round}`;
@@ -108,22 +120,116 @@ start.onclick = function startGame() {
     if (sec >= 10) {
       roundTime.innerText = `TIME : ${sec}`;
     }
-    if (sec === 0) {
-      round++;
-      clearInterval(begin);
-      setTimeout(roundTimeout, 2000);
+
+    if (sec === 0 && round < 3) {
+      show1("PAUSE");
     }
+
+    if (sec === 0) {
+      clearInterval(begin);
+      setTimeout(roundTimeout, 1000);
+    }
+    if (round >= 4) {
+      roundQ.innerText = "ROUND : 1";
+      show2("GAME OVER");
+      clearInterval(begin);
+      gameOver();
+    }
+
     sec--;
 
     moveBox();
   }, 1000);
+}
+let l = false;
+start.onclick = function startGame() {
+  if (l) return;
+  l = true;
+  show("START");
+  round = 1;
+  startRound();
 };
 
+//let l = false;
+//start.onclick = function startGame() {
+//if (l) return;
+//l = true;
 
+//show("START");
 
+//begin = setInterval(function () {
+// roundWinner.innerText = "";
+//roundQ.innerText = `ROUND : ${round}`;
+//if (sec < 0) {
+//  sec = 30;
+// }
+//if (sec < 10) {
+// roundTime.innerText = `TIME : 0${sec}`;
+// }
+// if (sec >= 10) {
+//  roundTime.innerText = `TIME : ${sec}`;
+//  }
+//if (sec === 0) {
+//   round++;
 
+//  setTimeout(roundTimeout, 2000);
+// clearInterval(begin);
 
+// }
+//sec--;
 
+// moveBox();
+// }, 1000);
+//};
 
+function show(message) {
+  const add = document.createElement("div");
+  add.classList.add("message");
+  add.textContent = message;
+  document.body.appendChild(add);
 
+  setTimeout(() => {
+    add.remove();
+  }, 1000);
+}
+function show1(message) {
+  const add = document.createElement("div");
+  add.classList.add("message1");
+  add.textContent = message;
+  document.body.appendChild(add);
 
+  setTimeout(() => {
+    add.remove();
+  }, 5000);
+}
+function show2(message) {
+  const add = document.createElement("div");
+  add.classList.add("message2");
+  add.textContent = message;
+  document.body.appendChild(add);
+
+  setTimeout(() => {
+    add.remove();
+  }, 10000);
+}
+function show3(message) {
+  const add = document.createElement("div");
+  add.classList.add("message3");
+  add.textContent = message;
+  document.body.appendChild(add);
+
+  setTimeout(() => {
+    add.remove();
+  }, 10000);
+}
+function gameOver() {
+  if (brnd > crnd) {
+    show3("HUMAN WINS !!!");
+  }
+  if (brnd < crnd) {
+    show3("COMP WINS !!!");
+  }
+  if (brnd === crnd) {
+    show3("DRAW !!!");
+  }
+}
