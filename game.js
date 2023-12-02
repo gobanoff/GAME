@@ -68,7 +68,7 @@ function missCounter(event) {
 }
 
 function pointCounter() {
-  if (sec > 0 && sec < 30) {
+  if (sec > 0 && sec < 29) {
     bpoints++;
   }
 
